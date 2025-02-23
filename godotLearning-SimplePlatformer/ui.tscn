@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://6vc7qcgbineu"]
+
+[ext_resource type="Script" path="res://ui.gd" id="1_dw08w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfvhi"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dw08w")
+
+[node name="RespawnScreen" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rfvhi")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="RespawnScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.211765, 0.160784, 0.27451)
+
+[node name="Button" type="Button" parent="RespawnScreen"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 51.5
+offset_right = 125.0
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Respawn
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="RespawnScreen"]
+z_index = 5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.5
+offset_top = -88.5
+offset_right = 75.5
+offset_bottom = -39.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 35
+text = "You Died"
+fit_content = true
+autowrap_mode = 0
+
+[connection signal="pressed" from="RespawnScreen/Button" to="." method="_on_button_pressed"]

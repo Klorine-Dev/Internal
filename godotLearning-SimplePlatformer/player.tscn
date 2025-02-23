@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgilwgbqsxxke"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_d41hp"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_alyyp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbud7"]
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1tngx"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_d41hp")
+
+[node name="PlayerModel" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_alyyp")
+surface_material_override/0 = SubResource("StandardMaterial3D_bbud7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1tngx")
+
+[node name="TwistPivot" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="PitchPivot" type="Node3D" parent="TwistPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0.0422215, 2.38419e-07, -0.0167034)
+
+[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 4.47035e-08, 0, -4.47035e-08, 1, -0.0175613, -0.000153542, 3.00087)

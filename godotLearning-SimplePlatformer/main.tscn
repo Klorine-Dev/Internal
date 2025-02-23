@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://dh52rfvcyifal"]
+
+[ext_resource type="PackedScene" uid="uid://cgilwgbqsxxke" path="res://player.tscn" id="1_ka8am"]
+[ext_resource type="Script" path="res://main.gd" id="1_ofo0q"]
+[ext_resource type="PackedScene" uid="uid://6vc7qcgbineu" path="res://ui.tscn" id="3_qai8s"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u45yn"]
+sky_top_color = Color(0.360193, 0.737553, 1, 1)
+sky_horizon_color = Color(0.626737, 0.720468, 0.792824, 1)
+ground_bottom_color = Color(0.146754, 0.144318, 0.171298, 1)
+ground_horizon_color = Color(0.626737, 0.720468, 0.792824, 1)
+
+[sub_resource type="Sky" id="Sky_53ddv"]
+sky_material = SubResource("ProceduralSkyMaterial_u45yn")
+
+[sub_resource type="Environment" id="Environment_r4lm2"]
+background_mode = 2
+sky = SubResource("Sky_53ddv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_6hrxq"]
+size = Vector3(10, 0.3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmc0w"]
+size = Vector3(10, 0.3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yox41"]
+size = Vector3(1.2, 0.5, 3.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xvgun"]
+size = Vector3(1, 0.3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bsk40"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.884314, 3.20069e-06, 1.15514e-06, 1)
+emission_energy_multiplier = 1.66
+grow_amount = 0.264
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iv2o8"]
+margin = 0.0
+size = Vector3(1, 0.3, 3)
+
+[node name="Worlds" type="Node3D"]
+script = ExtResource("1_ofo0q")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r4lm2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(1, 1, 0.890196, 1)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_6hrxq")
+
+[node name="StaticBody" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Floor/StaticBody"]
+shape = SubResource("BoxShape3D_gmc0w")
+
+[node name="KillBrick" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="KillbrickCollision" type="Area3D" parent="KillBrick"]
+
+[node name="KillBrickCollisionShape" type="CollisionShape3D" parent="KillBrick/KillbrickCollision"]
+shape = SubResource("BoxShape3D_yox41")
+
+[node name="Mesh" type="MeshInstance3D" parent="KillBrick"]
+mesh = SubResource("BoxMesh_xvgun")
+surface_material_override/0 = SubResource("StandardMaterial3D_bsk40")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="KillBrick"]
+shape = SubResource("BoxShape3D_iv2o8")
+
+[node name="Player" parent="." instance=ExtResource("1_ka8am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2, 0)
+
+[node name="UI" parent="." instance=ExtResource("3_qai8s")]
+
+[connection signal="body_entered" from="KillBrick/KillbrickCollision" to="." method="_on_area_3d_body_entered"]

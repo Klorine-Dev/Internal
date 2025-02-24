@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgilwgbqsxxke"]
+[gd_scene load_steps=6 format=3 uid="uid://cgilwgbqsxxke"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_d41hp"]
 
@@ -8,6 +8,9 @@
 emission_energy_multiplier = 16.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1tngx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3c4y"]
+bg_color = Color(7.21961e-06, 0.872044, 0.41718, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_d41hp")
@@ -26,4 +29,32 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1, 
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0.0422215, 2.38419e-07, -0.0167034)
 
 [node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 4.47035e-08, 0, -4.47035e-08, 1, -0.0175613, -0.000153542, 3.00087)
+transform = Transform3D(1, 0, 0, 0, 1, 4.47035e-08, 0, -4.47035e-08, 1, 0, 0, 3)
+
+[node name="HealthGui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="HealthGui"]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 305.0
+offset_bottom = 35.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_h3c4y")
+step = 1.0
+rounded = true
+allow_greater = true
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="PlayerHealth" type="Node" parent="."]
+metadata/Health = 0
+
+[connection signal="timeout" from="DamageTimer" to="." method="_on_timer_timeout"]

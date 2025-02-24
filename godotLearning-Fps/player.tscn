@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://do13e85u4jwly"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ygodg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4co3h"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_i2ktq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ng0qv"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ygodg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4co3h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_i2ktq")
+surface_material_override/0 = SubResource("StandardMaterial3D_ng0qv")
+
+[node name="CameraController" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00619841, 1.5, -0.00913811)
+
+[node name="Reflections" type="ReflectionProbe" parent="CameraController/Camera3D"]
+update_mode = 1

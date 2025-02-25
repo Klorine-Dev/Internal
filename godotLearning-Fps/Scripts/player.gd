@@ -1,3 +1,4 @@
+#https://www.youtube.com/watch?v=qzncNwdSIkA at 10:39
 extends CharacterBody3D;
 
 @export var SPEED:float=4.0;

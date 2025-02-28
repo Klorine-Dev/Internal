@@ -165,7 +165,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ng0qv")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-fov = 100.0
 
 [node name="Reflections" type="ReflectionProbe" parent="CameraController/Camera3D"]
 update_mode = 1

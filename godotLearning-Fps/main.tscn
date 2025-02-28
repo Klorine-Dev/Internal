@@ -1,6 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://q5hga07cb6xf"]
+[gd_scene load_steps=19 format=3 uid="uid://q5hga07cb6xf"]
 
 [ext_resource type="PackedScene" uid="uid://do13e85u4jwly" path="res://player.tscn" id="1_45rtc"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_blur_stage.tres" id="1_sobai"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_neighbor_max_stage.tres" id="2_7fe5c"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_overlay_stage.tres" id="3_5boy2"]
+[ext_resource type="Script" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_motion_blur.gd" id="4_s81gf"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_max_x_stage.tres" id="5_ktjjr"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_max_y_stage.tres" id="6_cn4ci"]
+[ext_resource type="Resource" path="res://addons/SphynxMotionBlurToolkit/McGuire/mcguire_tile_variance_stage.tres" id="7_iq4p8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubfhm"]
 sky_top_color = Color(3.85046e-07, 0.616644, 0.94619, 1)
@@ -19,6 +26,26 @@ tonemap_mode = 2
 ssao_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_yvuft"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("4_s81gf")
+blur_stage = ExtResource("1_sobai")
+overlay_stage = ExtResource("3_5boy2")
+tile_max_x_stage = ExtResource("5_ktjjr")
+tile_max_y_stage = ExtResource("6_cn4ci")
+neighbor_max_stage = ExtResource("2_7fe5c")
+tile_variance_stage = ExtResource("7_iq4p8")
+tile_size = 40
+debug = false
+
+[sub_resource type="Compositor" id="Compositor_lcugv"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_yvuft")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_jx5co"]
 size = Vector3(10, 0.3, 10)
@@ -40,6 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0152149, -1.90735e-06, -0.
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_jh72v")
+compositor = SubResource("Compositor_lcugv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 6.43264, -6.32989)
@@ -75,14 +103,4 @@ skeleton = NodePath("../Box")
 [node name="StaticBody3D" type="StaticBody3D" parent="Box2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/StaticBody3D"]
-shape = SubResource("BoxShape3D_p7klq")
-
-[node name="Box3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.75, -1)
-mesh = SubResource("BoxMesh_wj3ke")
-skeleton = NodePath("../Box")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Box3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3/StaticBody3D"]
 shape = SubResource("BoxShape3D_p7klq")

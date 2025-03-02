@@ -1,18 +1,24 @@
-extends CharacterBody3D;
+class_name Player extends CharacterBody3D;
 
 # movement vars
 @export var SPEED:float=4.0;
-@export var SPRINT_MULTIPLIER:float=1.65;
-@export var SPEED_SPRINT:float=SPEED*SPRINT_MULTIPLIER;
+@export var SPEED_SPRINT:float=6.5;
 @export var ACCELERATION:float=.1;
 @export var DECELERATION:float=.15;
 @export var JUMP_VELOCITY:float=4.5;
 @export var ANIMATION_PLAYER:AnimationPlayer;
-@export var CROUCH_SHAPECAST:ShapeCast3D;
-@export var TOGGLE_CROUCH:bool=false;
+@export var COYOTE_TIME:float=.35;
+@export var FOV:float=100.0;
+@export var SPRINT_FOV_MULTIPLIER:float=1.25;
 @export_range(5,10,.1) var CROUCH_SPEED:float=7.0;
-var _is_crouching:bool=false;
 var _is_sprinting:bool=false;
+var _can_jump:bool=true;
+var _coyote:bool=false;
+
+#!deprecated:crouch function vars
+	# @export var CROUCH_SHAPECAST:ShapeCast3D;
+	# @export var TOGGLE_CROUCH:bool=false;
+	# var _is_crouching:bool=false;
 
 # camera vars
 @export var MOUSE_SENSITIVITY:float=.75;
@@ -29,7 +35,9 @@ var _camera_rotation:Vector3;
 func _ready()->void:
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;
 	Global.player=self;
-	CROUCH_SHAPECAST.add_exception($".");
+	Global.camera=$CameraController/Camera3D;
+	# CROUCH_SHAPECAST.add_exception($".");
+	$CoyoteTimer.wait_time=COYOTE_TIME;
 
 func _input(event: InputEvent)->void:
 	if(event.is_action_pressed("exit")):
@@ -37,14 +45,14 @@ func _input(event: InputEvent)->void:
 			Input.mouse_mode=Input.MOUSE_MODE_VISIBLE;
 		else:get_tree().quit();
 	#!deprecated sprint function
-	# if(event.is_action_pressed("sprint")):_is_sprinting=true;
-	# elif(event.is_action_released("sprint")):_is_sprinting=false;
+		# if(event.is_action_pressed("sprint")):_is_sprinting=true;
+		# elif(event.is_action_released("sprint")):_is_sprinting=false;
 	#!godot is gstinky
-	#if(event.is_action_pressed("crouch") and TOGGLE_CROUCH):toggle_crouch();
-	#if(event.is_action_pressed("crouch") and !_is_crouching and !TOGGLE_CROUCH):
-	#	crouching(true);
-	#if(event.is_action_pressed("crouch") and !TOGGLE_CROUCH):
-	#	crouching(false);
+		#if(event.is_action_pressed("crouch") and TOGGLE_CROUCH):toggle_crouch();
+		#if(event.is_action_pressed("crouch") and !_is_crouching and !TOGGLE_CROUCH):
+		#	crouching(true);
+		#if(event.is_action_pressed("crouch") and !TOGGLE_CROUCH):
+		#	crouching(false);
 
 func _unhandled_input(event:InputEvent)->void:
 	if(Input.mouse_mode==Input.MOUSE_MODE_VISIBLE):
@@ -64,9 +72,9 @@ func _update_camera(delta):
 	_camera_rotation=Vector3(_mouse_rotation.x,0.0,0.0);
 	CAMERA_CONTROLLER.transform.basis=Basis.from_euler(_camera_rotation);
 	CAMERA_CONTROLLER.rotation.z=0.0;
-	$CameraController/Camera3D.fov=lerp(
-		float($CameraController/Camera3D.fov),
-		125.0 if _is_sprinting else 90.0,.15
+	update_camera_fov(
+		(FOV*SPRINT_FOV_MULTIPLIER) if _is_sprinting else FOV, 
+		.35 if _is_sprinting else .15
 	);
 	global_transform.basis=Basis.from_euler(_player_rotation);
 	_rotation_input=0.0;
@@ -74,9 +82,40 @@ func _update_camera(delta):
 
 func _physics_process(delta: float) -> void:
 	Global.debug.add_prop("PlayerVelocity",velocity.length(),2);
-	if not is_on_floor():velocity+=get_gravity()*delta;
+	Global.debug.add_prop("CanJump?",_can_jump,3);
 	_update_camera(delta);
-	if Input.is_action_just_pressed("move_jump") and is_on_floor():velocity.y=JUMP_VELOCITY;
+
+#!deprecated crouch function
+	# func toggle_crouch():
+		#!doesn't work >:c
+		# if _is_crouching and !CROUCH_SHAPECAST.is_colliding():crouching(false);
+		# elif not _is_crouching:crouching(true);
+
+	# func crouching(state:bool):
+		# match state:
+			# true:ANIMATION_PLAYER.play("crouch",0,CROUCH_SPEED);
+			# false:ANIMATION_PLAYER.play("crouch",0,-CROUCH_SPEED,true);
+
+	# func _on_animation_player_animation_started(anim_name:StringName) -> void:
+		# if anim_name=="crouch":_is_crouching=!_is_crouching;
+
+func _on_coyote_timer_timeout()->void:
+	_can_jump=false;
+	_coyote=false;
+
+func update_gravity(delta)->void:
+	if not is_on_floor():velocity+=get_gravity()*delta;
+	if is_on_floor():
+		_coyote=false;
+		_can_jump=true;
+	elif !is_on_floor() and !_coyote:
+		_coyote=true;
+		$CoyoteTimer.start();
+
+func update_input(speed:float,accel:float,decel:float)->void:
+	if Input.is_action_just_pressed("move_jump") and _can_jump: #(is_on_floor()):# or _coyote):
+		velocity.y=JUMP_VELOCITY;
+		_can_jump=false;
 	var input_dir:=Input.get_vector(
 		"move_left",
 		"move_right",
@@ -85,26 +124,15 @@ func _physics_process(delta: float) -> void:
 	);
 	var direction:=(transform.basis*Vector3(input_dir.x,0,input_dir.y)).normalized()
 	if direction:
-		if _is_sprinting:
-			velocity.x=lerp(velocity.x,direction.x*SPEED_SPRINT,ACCELERATION);
-			velocity.z=lerp(velocity.z,direction.z*SPEED_SPRINT,ACCELERATION);
-		else:
-			velocity.x=lerp(velocity.x,direction.x*SPEED,ACCELERATION);
-			velocity.z=lerp(velocity.z,direction.z*SPEED,ACCELERATION);
+		velocity.x=lerp(velocity.x,direction.x*speed,accel);
+		velocity.z=lerp(velocity.z,direction.z*speed,accel);
 	else:
-		velocity.x=move_toward(velocity.x,0,DECELERATION);
-		velocity.z=move_toward(velocity.z,0,DECELERATION);
+		velocity.x=move_toward(velocity.x,0,decel);
+		velocity.z=move_toward(velocity.z,0,decel);
+
+func update_camera_fov(fov:float,speed:float):
+	# Sprint Fov Script
+	$CameraController/Camera3D.fov=lerp(float($CameraController/Camera3D.fov),fov,speed);
+
+func update_velocity()->void:
 	move_and_slide();
-
-func toggle_crouch():
-	#!doesn't work >:c
-	if _is_crouching and !CROUCH_SHAPECAST.is_colliding():crouching(false);
-	elif not _is_crouching:crouching(true);
-
-func crouching(state:bool):
-	match state:
-		true:ANIMATION_PLAYER.play("crouch",0,CROUCH_SPEED);
-		false:ANIMATION_PLAYER.play("crouch",0,-CROUCH_SPEED,true);
-
-func _on_animation_player_animation_started(anim_name:StringName) -> void:
-	if anim_name=="crouch":_is_crouching=!_is_crouching;

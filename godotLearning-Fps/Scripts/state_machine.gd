@@ -11,7 +11,7 @@ func _ready()->void:
       child.transition.connect(on_child_transition);
     else:push_warning("state machine contains incompatible child node");
   await owner.ready;
-  CURRENT_STATE.enter();
+  CURRENT_STATE.enter(null);
 
 func _process(delta:float)->void:
   CURRENT_STATE.update(delta);
@@ -20,10 +20,11 @@ func _process(delta:float)->void:
 func _physics_process(delta:float)->void:CURRENT_STATE.physics_update(delta);
 
 func on_child_transition(state_name:StringName)->void:
+  print(state_name);
   var new_state=states.get(state_name);
   if new_state!=null:
     if new_state!=CURRENT_STATE:
       CURRENT_STATE.exit();
-      new_state.enter();
+      new_state.enter(CURRENT_STATE);
       CURRENT_STATE=new_state;
   else:push_warning("state does not exist");

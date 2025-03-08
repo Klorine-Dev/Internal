@@ -8,6 +8,10 @@ func _ready()->void:
   await owner.ready;
   PLAYER=owner as Player;
   ANIMATION=PLAYER.ANIMATION_PLAYER;
+  ready();
+
+func ready()->void:
+  pass;
 
 func _process(delta:float)->void:
   pass;

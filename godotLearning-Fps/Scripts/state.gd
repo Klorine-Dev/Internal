@@ -3,7 +3,7 @@ extends Node;
 
 signal transition(state_name:StringName);
 
-func enter()->void:
+func enter(previous_state)->void:
   pass;
 
 func exit()->void:

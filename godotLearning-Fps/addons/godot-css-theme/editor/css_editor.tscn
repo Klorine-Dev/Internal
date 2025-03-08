@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dcmut0gcayih2"]
 
-[ext_resource type="Script" path="res://addons/godot-css-theme/editor/css_editor.gd" id="1_d8bk4"]
-[ext_resource type="Script" path="res://addons/godot-css-theme/editor/EditorButton.gd" id="2_77gh4"]
+[ext_resource type="Script" uid="uid://bvnjgubx2cij7" path="res://addons/godot-css-theme/editor/css_editor.gd" id="1_d8bk4"]
+[ext_resource type="Script" uid="uid://c7ara0p4ytroh" path="res://addons/godot-css-theme/editor/EditorButton.gd" id="2_77gh4"]
 [ext_resource type="CodeHighlighter" uid="uid://blglwyagrkxdm" path="res://addons/godot-css-theme/editor/css_syntax.tres" id="3_ynjw3"]
-[ext_resource type="Script" path="res://addons/godot-css-theme/editor/css_code_edit.gd" id="4_76rs7"]
+[ext_resource type="Script" uid="uid://dhshed3afg5rx" path="res://addons/godot-css-theme/editor/css_code_edit.gd" id="4_76rs7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kctcl"]
 

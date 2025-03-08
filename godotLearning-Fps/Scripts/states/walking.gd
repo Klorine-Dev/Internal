@@ -6,7 +6,7 @@ extends PlayerMovementStateModule;
 @export var ACCELERATION:float=.1;
 @export var DECELERATION:float=.15;
 
-func enter()->void:
+func enter(previous_state)->void:
   ANIMATION.play("walking",-1.0,1.0);
   Global.player._is_sprinting=false;
 
@@ -14,13 +14,16 @@ func update(delta):
   PLAYER.update_gravity(delta);
   PLAYER.update_input(SPEED,ACCELERATION,DECELERATION);
   PLAYER.update_velocity();
-  set_animation_speed(Global.player.velocity.length());
-  if Global.player.velocity.length()==0.0:
+  set_animation_speed(PLAYER.velocity.length());
+  if(Input.is_action_just_released("crouch")):
+    Global.crouch.uncrouch();
+  if(Input.is_action_just_pressed("crouch") and PLAYER.is_on_floor()):
+    transition.emit("Crouching");
+  if(get_parent().CURRENT_STATE.name!="Crouching" and PLAYER.velocity.length()==0.0):
     transition.emit("Idle");
-  if(Input.is_action_just_pressed("sprint")):
+  if(get_parent().CURRENT_STATE.name!="Crouching" and Input.is_action_just_pressed("sprint")):
     transition.emit("Sprinting");
 
 func set_animation_speed(speed):
-  var alpha=remap(speed,0.0,Global.player.SPEED,0.0,1.0);
+  var alpha=remap(speed,0.0,PLAYER.SPEED,0.0,1.0);
   ANIMATION.speed_scale=lerp(0.0,TOP_ANIM_SPEED,alpha);
-

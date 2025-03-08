@@ -14,9 +14,10 @@ class_name Player extends CharacterBody3D;
 var _is_sprinting:bool=false;
 var _can_jump:bool=true;
 var _coyote:bool=false;
+var _current_rotation:float;
 
 #!deprecated:crouch function vars
-	# @export var CROUCH_SHAPECAST:ShapeCast3D;
+@export var CROUCH_SHAPECAST:ShapeCast3D;
 	# @export var TOGGLE_CROUCH:bool=false;
 	# var _is_crouching:bool=false;
 
@@ -36,7 +37,6 @@ func _ready()->void:
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;
 	Global.player=self;
 	Global.camera=$CameraController/Camera3D;
-	# CROUCH_SHAPECAST.add_exception($".");
 	$CoyoteTimer.wait_time=COYOTE_TIME;
 
 func _input(event: InputEvent)->void:
@@ -65,6 +65,7 @@ func _unhandled_input(event:InputEvent)->void:
 		_tilt_input=-event.relative.y*MOUSE_SENSITIVITY;
 
 func _update_camera(delta):
+	_current_rotation=_rotation_input;
 	_mouse_rotation.x+=_tilt_input*delta;
 	_mouse_rotation.x=clamp(_mouse_rotation.x,TILT_LOWER_LIMIT,TILT_UPPER_LIMIT);
 	_mouse_rotation.y+=_rotation_input*delta;

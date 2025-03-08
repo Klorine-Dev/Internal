@@ -2,8 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://dn0ttcbglyr12" path="res://addons/kenney_prototype_textures/purple/texture_05.png" id="1_xcd8s"]
 [ext_resource type="Texture2D" uid="uid://cmvu4oatcl1lr" path="res://addons/kenney_prototype_textures/purple/texture_10.png" id="2_muu8q"]
-[ext_resource type="Script" path="res://CharacterBody3d.gd" id="3_3kw8g"]
-[ext_resource type="PackedScene" uid="uid://fn4ue284pmgv" path="res://motion_blur/motion_blur.tscn" id="4_aoyua"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sb5qb"]
 albedo_texture = ExtResource("1_xcd8s")
@@ -11,9 +9,15 @@ albedo_texture = ExtResource("1_xcd8s")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_or5xi"]
 albedo_texture = ExtResource("2_muu8q")
 
+[sub_resource type="Resource" id="Resource_b3l3m"]
+metadata/__load_path__ = "res://CharacterBody3d.gd"
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1bhqr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aoapi"]
+
+[sub_resource type="Resource" id="Resource_y72vu"]
+metadata/__load_path__ = "res://motion_blur/motion_blur.tscn"
 
 [node name="DemoScene" type="Node3D"]
 
@@ -31,7 +35,7 @@ size = Vector3(7.49306, 4, 6)
 material = SubResource("StandardMaterial3D_or5xi")
 
 [node name="CharacterBody3d" type="CharacterBody3D" parent="."]
-script = ExtResource("3_3kw8g")
+script = SubResource("Resource_b3l3m")
 
 [node name="MeshInstance3d" type="MeshInstance3D" parent="CharacterBody3d"]
 mesh = SubResource("CapsuleMesh_1bhqr")
@@ -43,5 +47,5 @@ shape = SubResource("CapsuleShape3D_aoapi")
 [node name="Camera3d" type="Camera3D" parent="CharacterBody3d"]
 current = true
 
-[node name="motion_blur" parent="CharacterBody3d/Camera3d" instance=ExtResource("4_aoyua")]
+[node name="motion_blur" parent="CharacterBody3d/Camera3d"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1.31997)

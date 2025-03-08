@@ -1,5 +1,5 @@
 # Changes
-### 3/1/25 - v0.1
-- Implement Changelog
-- Implement Working Coyote Time
-- Implement Edge Blur
+### 3/3/25 - v0.2
+- Update to Godot 4.4: I HATE UID FILES RAHHHHIERGHIEGHI
+- Added Crouch State
+- Planned (or added idk yet) Sliding

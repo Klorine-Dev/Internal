@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://q5hga07cb6xf"]
+
+[ext_resource type="PackedScene" uid="uid://do13e85u4jwly" path="res://player.tscn" id="1_45rtc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ubfhm"]
+sky_top_color = Color(3.85046e-07, 0.616644, 0.94619, 1)
+sky_horizon_color = Color(0.504938, 0.6901, 0.811907, 1)
+sky_energy_multiplier = 1.75
+ground_bottom_color = Color(0.0197523, 0.143754, 0.301438, 1)
+ground_horizon_color = Color(0.504938, 0.6901, 0.811907, 1)
+
+[sub_resource type="Sky" id="Sky_ythog"]
+sky_material = SubResource("ProceduralSkyMaterial_ubfhm")
+
+[sub_resource type="Environment" id="Environment_jh72v"]
+background_mode = 2
+sky = SubResource("Sky_ythog")
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 2.5
+glow_strength = 0.65
+glow_bloom = 0.2
+glow_blend_mode = 1
+fog_mode = 1
+fog_density = 1.0
+volumetric_fog_density = 0.005
+volumetric_fog_albedo = Color(0, 0, 0.294118, 1)
+volumetric_fog_emission = Color(0.165927, 0.000282239, 0.420547, 1)
+volumetric_fog_emission_energy = 21.9
+volumetric_fog_gi_inject = 0.09
+volumetric_fog_anisotropy = 0.9
+volumetric_fog_length = 90.8
+volumetric_fog_detail_spread = 6.0
+
+[sub_resource type="Compositor" id="Compositor_lcugv"]
+compositor_effects = Array[CompositorEffect]([null])
+
+[sub_resource type="BoxMesh" id="BoxMesh_jx5co"]
+size = Vector3(10, 0.3, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ip5x"]
+albedo_color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ak562"]
+size = Vector3(10, 0.3, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wj3ke"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p7klq"]
+size = Vector3(2, 2, 2)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jh72v")
+compositor = SubResource("Compositor_lcugv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 6.43264, -6.32989)
+shadow_enabled = true
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00329399, 0.0147934, -0.0101385)
+mesh = SubResource("BoxMesh_jx5co")
+surface_material_override/0 = SubResource("StandardMaterial3D_2ip5x")
+
+[node name="FloorStaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorStaticBody3D"]
+shape = SubResource("BoxShape3D_ak562")
+
+[node name="Player" parent="." instance=ExtResource("1_45rtc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.15, -3)
+mesh = SubResource("BoxMesh_wj3ke")
+
+[node name="BoxStaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/BoxStaticBody3D"]
+shape = SubResource("BoxShape3D_p7klq")
+
+[node name="Box2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.16, -3)
+mesh = SubResource("BoxMesh_wj3ke")
+skeleton = NodePath("../Box")
+
+[node name="Box2StaticBody3D" type="StaticBody3D" parent="Box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/Box2StaticBody3D"]
+shape = SubResource("BoxShape3D_p7klq")
+
+[node name="Box3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2.25, -1)
+mesh = SubResource("BoxMesh_wj3ke")
+skeleton = NodePath("../Box")
+
+[node name="Box3StaticBody3D" type="StaticBody3D" parent="Box3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box3/Box3StaticBody3D"]
+shape = SubResource("BoxShape3D_p7klq")
+
+[node name="Box4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01003, 3.1682, 1.00216)
+mesh = SubResource("BoxMesh_wj3ke")
+skeleton = NodePath("../Box")
+
+[node name="Box4StaticBody3D" type="StaticBody3D" parent="Box4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box4/Box4StaticBody3D"]
+shape = SubResource("BoxShape3D_p7klq")

@@ -12,6 +12,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 
 func _physics_process(delta: float) -> void:
+	$HealthGui/ProgressBar.value=get_parent().PlayerHealth;
 	if(get_parent().MovementEnabled):
 		if not is_on_floor():velocity+=get_gravity()*delta;
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -62,3 +63,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				# if(Input.is_mouse_button_pressed(2)):
 					twist_input=(-event.relative.x*mouse_sensitivity);
 					pitch_input=(-event.relative.y*mouse_sensitivity);
+
+
+func _on_timer_timeout() -> void:
+	if(get_parent().WhilePlayerTouching):
+		# get_parent().PlayerHealth=20;
+		hit.emit();
+		$DamageTimer.start();

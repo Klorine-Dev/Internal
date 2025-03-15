@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://do13e85u4jwly"]
+[gd_scene load_steps=26 format=3 uid="uid://do13e85u4jwly"]
 
 [ext_resource type="Script" uid="uid://dk85j85sdei5f" path="res://Scripts/player.gd" id="1_ygodg"]
 [ext_resource type="Script" uid="uid://cuv2asdqkadmd" path="res://Scripts/reticle.gd" id="2_614bs"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://b26wf87ucy17r" path="res://Scripts/states/crouching.gd" id="10_gbjiq"]
 [ext_resource type="Script" uid="uid://10clsnq1eeow" path="res://Scripts/coyote_timer.gd" id="10_nv7rk"]
 [ext_resource type="Script" uid="uid://x578rmldtlv6" path="res://Scripts/states/sliding.gd" id="11_ivps1"]
+[ext_resource type="Script" uid="uid://buuk63g866kik" path="res://Scripts/states/jumping.gd" id="12_urp6f"]
+[ext_resource type="Script" uid="uid://8byvkuhet1qo" path="res://Scripts/states/falling.gd" id="13_bwjto"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4co3h"]
 
@@ -500,8 +502,15 @@ CROUCH_SHAPECAST = NodePath("../../ShapeCast3D")
 [node name="Sliding" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("11_ivps1")
 
+[node name="Jumping" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("COYOTE_TIMER")]
+script = ExtResource("12_urp6f")
+COYOTE_TIMER = NodePath("../../CoyoteTimer")
+
+[node name="Falling" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_bwjto")
+
 [node name="CoyoteTimer" type="Timer" parent="."]
 script = ExtResource("10_nv7rk")
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
-[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="timeout" from="CoyoteTimer" to="PlayerStateMachine/Jumping" method="_on_coyote_timer_timeout"]

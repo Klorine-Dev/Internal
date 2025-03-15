@@ -1,5 +1,4 @@
-class_name PlayerMovementStateModule;
-extends State;
+class_name PlayerMovementStateModule extends State;
 
 var PLAYER:Player;
 var ANIMATION:AnimationPlayer;

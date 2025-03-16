@@ -20,7 +20,7 @@ func _process(delta:float)->void:
 func _physics_process(delta:float)->void:CURRENT_STATE.physics_update(delta);
 
 func on_child_transition(state_name:StringName)->void:
-  print(state_name);
+  print("Switched State: %s" % state_name);
   var new_state=states.get(state_name);
   if new_state!=null:
     if new_state!=CURRENT_STATE:

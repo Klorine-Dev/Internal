@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://do13e85u4jwly"]
+[gd_scene load_steps=27 format=3 uid="uid://do13e85u4jwly"]
 
 [ext_resource type="Script" uid="uid://dk85j85sdei5f" path="res://Scripts/player.gd" id="1_ygodg"]
 [ext_resource type="Script" uid="uid://cuv2asdqkadmd" path="res://Scripts/reticle.gd" id="2_614bs"]
 [ext_resource type="Shader" uid="uid://62cdiael0ddq" path="res://Shaders/edgeblur.gdshader" id="2_j1lxq"]
+[ext_resource type="PackedScene" uid="uid://dpqmf8qwqnwu5" path="res://weapon.tscn" id="3_606se"]
 [ext_resource type="Theme" uid="uid://d0nhckml4bail" path="res://UI/Themes/theme.tres" id="3_agqxh"]
 [ext_resource type="Script" uid="uid://wowu7nhblq37" path="res://Scripts/debug_panel.gd" id="4_r2cnl"]
 [ext_resource type="Script" uid="uid://dgmpred4csdl6" path="res://Scripts/state_machine.gd" id="5_xsaau"]
@@ -401,6 +402,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 100.0
 
 [node name="Reflections" type="ReflectionProbe" parent="CameraController/Camera3D"]
+visible = false
 update_mode = 1
 
 [node name="EdgeBlur" type="ColorRect" parent="CameraController/Camera3D"]
@@ -412,6 +414,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="WeaponRig" type="Node3D" parent="CameraController/Camera3D"]
+
+[node name="weapon" parent="CameraController/Camera3D/WeaponRig" instance=ExtResource("3_606se")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../CollisionShape3D/MogusBean")

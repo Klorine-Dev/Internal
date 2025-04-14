@@ -1,5 +1,5 @@
 Global Password: klorine17ERT
 gmail:     klorine.dev@gmail.com
-tiktok:    @
-instagram: @
+tiktok:    @klorinedev
+instagram: @klorine.dev
 reddit:    u/

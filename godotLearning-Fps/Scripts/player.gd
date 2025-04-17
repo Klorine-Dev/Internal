@@ -12,8 +12,6 @@ class_name Player extends CharacterBody3D;
 @export var SPRINT_FOV_MULTIPLIER:float=1.25;
 @export_range(5,10,.1) var CROUCH_SPEED:float=7.0;
 var _is_sprinting:bool=false;
-var _can_jump:bool=true;
-var _coyote:bool=false;
 var _current_rotation:float;
 
 #!deprecated:crouch function vars
@@ -32,6 +30,7 @@ var _rotation_input:float;
 var _tilt_input:float;
 var _player_rotation:Vector3;
 var _camera_rotation:Vector3;
+# var gravity:float=2;
 
 func _ready()->void:
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;
@@ -83,7 +82,6 @@ func _update_camera(delta):
 
 func _physics_process(delta: float) -> void:
 	Global.debug.add_prop("PlayerVelocity",velocity.length(),2);
-	Global.debug.add_prop("CanJump?",_can_jump,3);
 	_update_camera(delta);
 
 #!deprecated crouch function
@@ -100,23 +98,11 @@ func _physics_process(delta: float) -> void:
 	# func _on_animation_player_animation_started(anim_name:StringName) -> void:
 		# if anim_name=="crouch":_is_crouching=!_is_crouching;
 
-func _on_coyote_timer_timeout()->void:
-	_can_jump=false;
-	_coyote=false;
 
 func update_gravity(delta)->void:
 	if not is_on_floor():velocity+=get_gravity()*delta;
-	if is_on_floor():
-		_coyote=false;
-		_can_jump=true;
-	elif !is_on_floor() and !_coyote:
-		_coyote=true;
-		$CoyoteTimer.start();
 
 func update_input(speed:float,accel:float,decel:float)->void:
-	if Input.is_action_just_pressed("move_jump") and _can_jump: #(is_on_floor()):# or _coyote):
-		velocity.y=JUMP_VELOCITY;
-		_can_jump=false;
 	var input_dir:=Input.get_vector(
 		"move_left",
 		"move_right",

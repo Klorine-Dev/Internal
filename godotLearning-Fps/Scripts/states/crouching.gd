@@ -31,9 +31,8 @@ func update(delta):
   PLAYER.update_gravity(delta);
   PLAYER.update_input(SPEED,ACCELERATION,DECELERATION)
   PLAYER.update_velocity();
-  
-  if Input.is_action_just_released("crouch"):
-    uncrouch();
+  if PLAYER.velocity.y<-3.0 and !PLAYER.is_on_floor():transition.emit("Falling");
+  if Input.is_action_just_released("crouch"):uncrouch();
   elif !Input.is_action_pressed("crouch") and RELEASED==false:
     RELEASED=true;
     uncrouch();

@@ -14,11 +14,11 @@ func update(delta:float)->void:
   PLAYER.update_gravity(delta);
   PLAYER.update_input(SPEED,ACCELERATION,DECELERATION);
   PLAYER.update_velocity();
-  if(Input.is_action_just_pressed("crouch") and PLAYER.is_on_floor()):
-    transition.emit("Sliding");
+  if(Input.is_action_just_pressed("crouch") and PLAYER.is_on_floor()):transition.emit("Sliding");
   set_animation_speed(PLAYER.velocity.length());
-  if(Input.is_action_just_released("sprint")):
-    transition.emit("Walking");
+  if(Input.is_action_just_released("sprint")):transition.emit("Walking");
+  if Input.is_action_just_pressed("move_jump") and PLAYER.is_on_floor():transition.emit("Jumping");
+  if PLAYER.velocity.y<-3.0 and !PLAYER.is_on_floor():transition.emit("Falling");
 
 func set_animation_speed(speed):
   var alpha=remap(speed,0.0,PLAYER.SPEED_SPRINT,0.0,1.0);

@@ -1,0 +1,155 @@
+[gd_scene load_steps=4 format=4 uid="uid://3df7pgab3x0s"]
+
+[ext_resource type="Texture2D" uid="uid://0ux4n3rgwjl1" path="res://Sprites/pixil-frame-0 (6).png" id="1_w30hw"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ot7lo"]
+texture = ExtResource("1_w30hw")
+texture_region_size = Vector2i(28, 26)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -6)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -6)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -6)
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, -6)
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(0, -6)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, -6)
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, -6)
+8:0/0 = 0
+8:0/0/texture_origin = Vector2i(0, -6)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -6)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, -6)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, -6)
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -6)
+4:1/0 = 0
+4:1/0/texture_origin = Vector2i(0, -6)
+5:1/0 = 0
+5:1/0/texture_origin = Vector2i(0, -6)
+6:1/0 = 0
+6:1/0/texture_origin = Vector2i(0, -6)
+7:1/0 = 0
+7:1/0/texture_origin = Vector2i(0, -6)
+8:1/0 = 0
+8:1/0/texture_origin = Vector2i(0, -6)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(0, -6)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(0, -6)
+2:2/0 = 0
+2:2/0/texture_origin = Vector2i(0, -6)
+3:2/0 = 0
+3:2/0/texture_origin = Vector2i(0, -6)
+4:2/0 = 0
+4:2/0/texture_origin = Vector2i(0, -6)
+5:2/0 = 0
+5:2/0/texture_origin = Vector2i(0, -6)
+6:2/0 = 0
+6:2/0/texture_origin = Vector2i(0, -6)
+7:2/0 = 0
+7:2/0/texture_origin = Vector2i(0, -6)
+8:2/0 = 0
+8:2/0/texture_origin = Vector2i(0, -6)
+0:3/0 = 0
+0:3/0/texture_origin = Vector2i(0, -6)
+1:3/0 = 0
+1:3/0/texture_origin = Vector2i(0, -6)
+2:3/0 = 0
+2:3/0/texture_origin = Vector2i(0, -6)
+3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, -6)
+4:3/0 = 0
+4:3/0/texture_origin = Vector2i(0, -6)
+5:3/0 = 0
+5:3/0/texture_origin = Vector2i(0, -6)
+6:3/0 = 0
+6:3/0/texture_origin = Vector2i(0, -6)
+7:3/0 = 0
+7:3/0/texture_origin = Vector2i(0, -6)
+8:3/0 = 0
+8:3/0/texture_origin = Vector2i(0, -6)
+0:4/0 = 0
+0:4/0/texture_origin = Vector2i(0, -6)
+1:4/0 = 0
+1:4/0/texture_origin = Vector2i(0, -6)
+2:4/0 = 0
+2:4/0/texture_origin = Vector2i(0, -6)
+3:4/0 = 0
+3:4/0/texture_origin = Vector2i(0, -6)
+4:4/0 = 0
+4:4/0/texture_origin = Vector2i(0, -6)
+5:4/0 = 0
+5:4/0/texture_origin = Vector2i(0, -6)
+6:4/0 = 0
+6:4/0/texture_origin = Vector2i(0, -6)
+7:4/0 = 0
+7:4/0/texture_origin = Vector2i(0, -6)
+8:4/0 = 0
+8:4/0/texture_origin = Vector2i(0, -6)
+
+[sub_resource type="TileSet" id="TileSet_idgif"]
+tile_shape = 1
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(24, 12)
+sources/0 = SubResource("TileSetAtlasSource_ot7lo")
+
+[node name="Map" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AAACAP3/AAAIAAQAAAABAP3/AAAIAAQAAAABAP7/AAAIAAQAAAABAP//AAAIAAQAAAABAAAAAAAIAAQAAAACAAAAAAACAAAAAAACAP//AAAIAAQAAAADAP//AAACAAAAAAACAP7/AAAIAAQAAAADAP7/AAAIAAQAAAADAP3/AAAIAAQAAAAEAP7/AAAIAAQAAAAEAP//AAACAAAAAAADAAAAAAACAAAAAAADAAEAAAACAAAAAAAEAAAAAAACAAAAAAAFAAAAAAACAAAAAAAFAP//AAACAAAAAAAEAP3/AAAIAAQAAAAFAP7/AAACAAAAAAAFAP3/AAACAAAAAAAFAAEAAAACAAAAAAAEAAEAAAACAAAAAAACAAEAAAACAAAAAAABAAEAAAACAAAAAADP//7/AAAAAAAAAAD+//n/AAAIAAQAAAD///n/AAAIAAQAAAAAAPn/AAAIAAQAAAABAPn/AAAIAAQAAAACAPn/AAAIAAQAAAACAPr/AAAIAAQAAAADAPr/AAAIAAQAAAADAPn/AAAIAAQAAAAEAPn/AAAIAAQAAAAFAPn/AAACAAAAAAAGAPn/AAACAAAAAAAHAPn/AAACAAAAAAAIAPn/AAACAAAAAAAIAPr/AAACAAAAAAAJAPr/AAACAAAAAAAJAPv/AAACAAAAAAAJAPz/AAACAAAAAAAJAP3/AAACAAAAAAAJAP7/AAACAAAAAAAJAP//AAACAAAAAAAJAAAAAAACAAAAAAAJAAEAAAACAAAAAAAJAAIAAAACAAAAAAAJAAMAAAACAAAAAAAIAAMAAAACAAAAAAAIAAQAAAACAAAAAAAHAAQAAAACAAAAAAAGAAQAAAACAAAAAAAGAAMAAAACAAAAAAAFAAMAAAACAAAAAAAFAAQAAAACAAAAAAAEAAMAAAACAAAAAAAEAAQAAAACAAAAAAADAAMAAAACAAAAAAACAAMAAAACAAAAAAABAAMAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAABAAQAAAACAAAAAAAAAAQAAAAIAAQAAAD//wQAAAAIAAQAAAAAAAMAAAAIAAQAAAD//wMAAAAIAAQAAAD+/wMAAAAIAAQAAAD+/wIAAAAIAAQAAAD//wIAAAAIAAQAAAD//wEAAAAIAAQAAAD+/wEAAAAIAAQAAAD+/wAAAAABAAQAAAD+////AAABAAQAAAD9////AAABAAQAAAD9//7/AAABAAQAAAD9//3/AAABAAQAAAD9//z/AAABAAQAAAD9//v/AAABAAQAAAD9//r/AAAIAAQAAAD9/wAAAAABAAQAAAD9/wEAAAABAAQAAAD9/wIAAAABAAQAAAD9/wMAAAAIAAQAAAD+/wQAAAAIAAQAAAAIAPv/AAACAAAAAAAIAP7/AAACAAAAAAAIAP//AAACAAAAAAAIAAAAAAACAAAAAAAIAAIAAAACAAAAAAAHAAMAAAACAAAAAAAHAAAAAAACAAAAAAAHAP//AAACAAAAAAAHAP7/AAACAAAAAAAHAP3/AAACAAAAAAAGAPz/AAACAAAAAAAGAPv/AAACAAAAAAAGAPr/AAACAAAAAAAHAPr/AAACAAAAAAAHAPv/AAACAAAAAAAHAPz/AAACAAAAAAAIAPz/AAACAAAAAAAIAP3/AAACAAAAAAAFAPv/AAAIAAQAAAAFAPr/AAACAAAAAAAEAPr/AAAIAAQAAAAEAPv/AAAIAAQAAAAFAPz/AAAIAAQAAAAGAP3/AAACAAAAAAAGAP7/AAACAAAAAAAGAP//AAACAAAAAAAEAAIAAAACAAAAAAAFAAIAAAACAAAAAAAGAAEAAAACAAAAAAAGAAAAAAACAAAAAAADAAIAAAACAAAAAAACAAIAAAACAAAAAAABAAIAAAACAAAAAAAAAAIAAAAIAAQAAAAAAAEAAAAIAAQAAAAAAAAAAAAIAAQAAAD//wAAAAAIAAQAAAD/////AAAIAAQAAAAAAP//AAAIAAQAAAD///7/AAABAAQAAAD///3/AAABAAQAAAAAAP3/AAABAAQAAAAAAP7/AAAIAAQAAAAAAPz/AAABAAQAAAABAPz/AAAIAAQAAAACAPz/AAAIAAQAAAACAPv/AAAIAAQAAAADAPv/AAAIAAQAAAAEAPz/AAAIAAQAAAADAPz/AAAIAAQAAAABAPv/AAAIAAQAAAABAPr/AAAIAAQAAAAAAPr/AAAIAAQAAAAAAPv/AAAIAAQAAAD///r/AAAIAAQAAAD///v/AAAIAAQAAAD///z/AAABAAQAAAD+//z/AAABAAQAAAD+//v/AAAIAAQAAAD+//r/AAAIAAQAAAD+//3/AAABAAQAAAD+//7/AAABAAQAAAD9//n/AAAIAAQAAAAJAPn/AAACAAAAAAAJAAQAAAACAAAAAAAJAAUAAAACAAAAAAAIAAUAAAACAAAAAAAHAAUAAAACAAAAAAAGAAUAAAACAAAAAAAFAAUAAAACAAAAAAAEAAUAAAACAAAAAAADAAUAAAACAAAAAAACAAUAAAACAAAAAAABAAUAAAAIAAQAAAAAAAUAAAAIAAQAAAD//wUAAAAIAAQAAAD+/wUAAAAIAAQAAAD9/wUAAAAIAAQAAAD9/wQAAAAIAAQAAAAGAAIAAAACAAAAAAAHAAIAAAACAAAAAAAHAAEAAAACAAAAAAAIAAEAAAACAAAAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD+/wAAAAAGAAMAAAD9//n/AAAIAAQAAAD+//n/AAAIAAQAAAD+//j/AAAIAAQAAAD9//j/AAAIAAQAAAD8//j/AAABAAQAAAD8//n/AAABAAQAAAD9//r/AAABAAQAAAD9//v/AAABAAQAAAD+//r/AAAIAAQAAAD///j/AAAIAAQAAAD///n/AAAIAAQAAAAAAPn/AAAIAAQAAAAAAPj/AAAIAAQAAAD///r/AAAIAAQAAAAAAPr/AAAIAAQAAAABAPn/AAAIAAQAAAABAPj/AAAIAAQAAAD+//v/AAABAAQAAAD8//r/AAABAAQAAAD8//v/AAABAAQAAAD9//z/AAABAAQAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer3" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD9////AAAGAAMAAAD+//j/AAAGAAEAAAD8//f/AAAIAAAAAAD9//f/AAAIAAAAAAD7//j/AAAHAAAAAAD7//n/AAAHAAAAAAD8//r/AAAGAAEAAAD9//n/AAAIAAEAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer4" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD8//7/AAAGAAMAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer5" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD7//3/AAAGAAMAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer6" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD6//z/AAAGAAMAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer7" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD5//v/AAAIAAQAAAD5//z/AAAIAAQAAAD4//z/AAAIAAQAAAD4//v/AAAIAAQAAAD4//r/AAAIAAQAAAD5//r/AAAIAAQAAAD6//r/AAAIAAQAAAD6//v/AAAIAAQAAAD6//z/AAAIAAQAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="TileMapLayer8" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+position = Vector2(92, 19)
+tile_map_data = PackedByteArray("AADP//7/AAAAAAAAAAD4//v/AAAIAAQAAAD5//r/AAAIAAQAAAD4//r/AAAIAAQAAAD4//n/AAAIAAQAAAD3//r/AAAIAAQAAAA=")
+tile_set = SubResource("TileSet_idgif")
+
+[node name="Camera2D" type="Camera2D" parent="TileMapLayer8"]
